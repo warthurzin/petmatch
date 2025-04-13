@@ -3,20 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Login</title>
 </head>
-<body>
-    <h2>Login</h2>
-    <form action="/login" method="POST">
-        <label for="email">Email:</label>
+<body id="body">
+    <header id="header">
+        <div id="logo">
+            <!-- Adicionar logo aqui -->
+        </div>
+        <nav id="nav">
+            <a href="/login" id="loginLink">Login</a>
+            <a href="/cadastro" id="cadastroLink">Cadastro</a>
+        </nav>
+    </header>
+
+    <h2 id="pageTitle">Login</h2>
+
+    <form id="formLogin" action="/login" method="POST">
+        <label for="email" id="emailLabel">Email:</label>
         <input type="email" id="email" name="email" required><br><br>
 
-        <label for="senha">Senha:</label>
+        <label for="senha" id="senhaLabel">Senha:</label>
         <input type="password" id="senha" name="senha" required><br><br>
 
-        <button type="submit">Entrar</button>
+        <button type="submit" id="submitButton">Entrar</button>
     </form>
 
-    <p>Não tem conta? <a href="/cadastro">Clique aqui para se cadastrar</a></p>
+    <p id="signupLink">Não tem conta? <a href="/cadastro" id="cadastroLink">Clique aqui para se cadastrar</a>
+    </p>
+
+    <footer>
+        <p>© 2025 - Todos os direitos reservados.</p>
+    </footer>
 </body>
 </html>
