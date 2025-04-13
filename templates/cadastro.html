@@ -2,31 +2,62 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Cadastro</title>
+    <script>
+        function mostrarCampos() {
+            const tipo = document.getElementById("tipo_usuario").value;
+            document.getElementById("campos_ong").style.display = tipo === "ONG" ? "block" : "none";
+            document.getElementById("campos_adotante").style.display = tipo === "Adotante" ? "block" : "none";
+        }
+
+        window.onload = function () {
+            mostrarCampos(); // Executa ao carregar a página
+            document.getElementById("tipo_usuario").addEventListener("change", mostrarCampos);
+        };
+    </script>
 </head>
 <body>
-    <h2>Cadastro de Usuário</h2>
-    <form action="/cadastro" method="POST">
+    <h1>Cadastro</h1>
+    <form action="/cadastro" method="post" enctype="multipart/form-data">
+        <label for="tipo_usuario">Tipo de usuário:</label>
+        <select id="tipo_usuario" name="tipo_usuario" required>
+            <option value="">Selecione</option>
+            <option value="ONG">ONG</option>
+            <option value="Adotante">Adotante</option>
+        </select><br><br>
+
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br><br>
+        <input type="text" name="nome" required><br><br>
 
         <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required><br><br>
+        <input type="email" name="email" required><br><br>
 
         <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required><br><br>
+        <input type="password" name="senha" required><br><br>
 
-        <label for="tipo_usuario">Tipo de Usuário:</label>
-        <select id="tipo_usuario" name="tipo_usuario" required>
-            <option value="ONG">Cadastro ONG</option>
-            <option value="Adotante">Cadastro Adotante</option>
-        </select><br><br>
+        <label for="telefone">Telefone:</label>
+        <input type="text" name="telefone"><br><br>
+
+        <label for="endereco">Endereço:</label>
+        <input type="text" name="endereco"><br><br>
+
+        <div id="campos_ong" style="display: none;">
+            <label for="documento_verificacao">Documento de Verificação (ONG):</label>
+            <input type="text" name="documento_verificacao"><br><br>
+
+            <input type="hidden" name="status_verificacao" value="Pendente">
+        </div>
+
+        <div id="campos_adotante" style="display: none;">
+            <label for="possui_ou_ja_teve_pets">Você já possuiu ou já teve pets?</label>
+            <select name="possui_ou_ja_teve_pets">
+                <option value="">Selecione</option>
+                <option value="Sim">Sim</option>
+                <option value="Não">Não</option>
+            </select><br><br>
+        </div>
 
         <button type="submit">Cadastrar</button>
     </form>
-
-    <p>Já tem conta? <a href="/login">Clique aqui para fazer login</a></p>
 </body>
 </html>
