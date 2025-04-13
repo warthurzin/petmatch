@@ -3,61 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <title>Cadastro</title>
-    <script>
-        function mostrarCampos() {
-            const tipo = document.getElementById("tipo_usuario").value;
-            document.getElementById("campos_ong").style.display = tipo === "ONG" ? "block" : "none";
-            document.getElementById("campos_adotante").style.display = tipo === "Adotante" ? "block" : "none";
-        }
-
-        window.onload = function () {
-            mostrarCampos(); // Executa ao carregar a página
-            document.getElementById("tipo_usuario").addEventListener("change", mostrarCampos);
-        };
-    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='cadastrostyle.css') }}">
 </head>
 <body>
-    <h1>Cadastro</h1>
-    <form action="/cadastro" method="post" enctype="multipart/form-data">
-        <label for="tipo_usuario">Tipo de usuário:</label>
-        <select id="tipo_usuario" name="tipo_usuario" required>
-            <option value="">Selecione</option>
-            <option value="ONG">ONG</option>
-            <option value="Adotante">Adotante</option>
-        </select><br><br>
+    <div class="background">
+        <div id="cadastro-container">
+            <h2>Cadastro</h2>
+            <form action="/cadastro" method="post">
+                <div class="form-group">
+                    <label for="tipo_usuario">Tipo de usuário:</label>
+                    <select id="tipo_usuario" name="tipo_usuario" required>
+                        <option value="">Selecione</option>
+                        <option value="ONG">ONG</option>
+                        <option value="Adotante">Adotante</option>
+                    </select>
+                </div>
 
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" required><br><br>
+                <div class="form-group">
+                    <label for="nome">Nome:</label>
+                    <input type="text" name="nome" required>
+                </div>
 
-        <label for="email">Email:</label>
-        <input type="email" name="email" required><br><br>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" required>
+                </div>
 
-        <label for="senha">Senha:</label>
-        <input type="password" name="senha" required><br><br>
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="password" name="senha" required>
+                </div>
 
-        <label for="telefone">Telefone:</label>
-        <input type="text" name="telefone"><br><br>
+                <div class="form-group">
+                    <label for="telefone">Telefone:</label>
+                    <input type="text" name="telefone">
+                </div>
 
-        <label for="endereco">Endereço:</label>
-        <input type="text" name="endereco"><br><br>
+                <div class="form-group">
+                    <label for="endereco">Endereço:</label>
+                    <input type="text" name="endereco">
+                </div>
 
-        <div id="campos_ong" style="display: none;">
-            <label for="documento_verificacao">Documento de Verificação (ONG):</label>
-            <input type="text" name="documento_verificacao"><br><br>
+                <!-- Div que engloba os campos extras (ONG ou Adotante) -->
+                <div class="tipo-extra-campos">
+                    <div id="campos_ong" class="tipo-extra" style="display: none;">
+                        <label for="documento_verificacao">Documento de Verificação (ONG):</label>
+                        <input type="text" name="documento_verificacao">
+                        <input type="hidden" name="status_verificacao" value="Pendente">
+                    </div>
 
-            <input type="hidden" name="status_verificacao" value="Pendente">
+                    <div id="campos_adotante" class="tipo-extra" style="display: none;">
+                        <label for="possui_ou_ja_teve_pets">Você já possuiu ou já teve pets?</label>
+                        <select name="possui_ou_ja_teve_pets">
+                            <option value="">Selecione</option>
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit">Cadastrar</button>
+            </form>
         </div>
+    </div>
 
-        <div id="campos_adotante" style="display: none;">
-            <label for="possui_ou_ja_teve_pets">Você já possuiu ou já teve pets?</label>
-            <select name="possui_ou_ja_teve_pets">
-                <option value="">Selecione</option>
-                <option value="Sim">Sim</option>
-                <option value="Não">Não</option>
-            </select><br><br>
-        </div>
+    <script>
+        // Função para mostrar os campos específicos conforme a seleção
+        function mostrarCampos() {
+            const tipo = document.getElementById("tipo_usuario").value;
+            const ongDiv = document.getElementById("campos_ong");
+            const adotanteDiv = document.getElementById("campos_adotante");
 
-        <button type="submit">Cadastrar</button>
-    </form>
+            // Se a escolha for "ONG", mostra os campos da ONG e esconde os de Adotante
+            if (tipo === "ONG") {
+                ongDiv.style.display = "block";
+                adotanteDiv.style.display = "none";
+            } 
+            // Se a escolha for "Adotante", mostra os campos do Adotante e esconde os de ONG
+            else if (tipo === "Adotante") {
+                adotanteDiv.style.display = "block";
+                ongDiv.style.display = "none";
+            } 
+            // Se nenhuma opção for escolhida, esconde ambos
+            else {
+                ongDiv.style.display = "none";
+                adotanteDiv.style.display = "none";
+            }
+        }
+
+        // Executa a função ao carregar a página e ao alterar a seleção do tipo de usuário
+        window.onload = function () {
+            mostrarCampos();  // Inicializa a visualização conforme a escolha anterior (caso já tenha sido selecionado)
+            document.getElementById("tipo_usuario").addEventListener("change", mostrarCampos);  // Escuta a mudança da seleção
+        };
+    </script>
 </body>
 </html>
