@@ -2,100 +2,82 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='cadastrostyle.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="background">
-        <div id="cadastro-container">
-            <h2>Cadastro</h2>
-            <form action="/cadastro" method="post">
-                <div class="form-group">
-                    <label for="tipo_usuario">Tipo de usuário:</label>
-                    <select id="tipo_usuario" name="tipo_usuario" required>
-                        <option value="">Selecione</option>
-                        <option value="ONG">ONG</option>
-                        <option value="Adotante">Adotante</option>
-                    </select>
-                </div>
+    <div class="form-container">
+        <h2>Cadastro</h2>
+        <form action="/cadastro" method="post">
+            <div class="form-group">
+                <label for="tipo_usuario">Tipo de usuário:</label>
+                <select id="tipo_usuario" name="tipo_usuario" required>
+                    <option value="">Selecione</option>
+                    <option value="ONG">ONG</option>
+                    <option value="Adotante">Adotante</option>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="nome">Nome:</label>
-                    <input type="text" name="nome" required>
-                </div>
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" id="nome" name="nome" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" required>
-                </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="senha">Senha:</label>
-                    <input type="password" name="senha" required>
-                </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="telefone">Telefone:</label>
-                    <input type="text" name="telefone">
-                </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="text" id="telefone" name="telefone">
+            </div>
 
-                <div class="form-group">
-                    <label for="endereco">Endereço:</label>
-                    <input type="text" name="endereco">
-                </div>
+            <div class="form-group">
+                <label for="endereco">Endereço:</label>
+                <input type="text" id="endereco" name="endereco">
+            </div>
 
-                <!-- Div que engloba os campos extras (ONG ou Adotante) -->
-                <div class="tipo-extra-campos">
-                    <div id="campos_ong" class="tipo-extra" style="display: none;">
-                        <label for="documento_verificacao">Documento de Verificação (ONG):</label>
-                        <input type="text" name="documento_verificacao">
-                        <input type="hidden" name="status_verificacao" value="Pendente">
-                    </div>
+            <div id="campos_ong" class="form-group">
+                <label for="documento_verificacao">Documento de Verificação (ONG):</label>
+                <input type="text" id="documento_verificacao" name="documento_verificacao">
+                <input type="hidden" name="status_verificacao" value="Pendente">
+            </div>
 
-                    <div id="campos_adotante" class="tipo-extra" style="display: none;">
-                        <label for="possui_ou_ja_teve_pets">Você já possuiu ou já teve pets?</label>
-                        <select name="possui_ou_ja_teve_pets">
-                            <option value="">Selecione</option>
-                            <option value="Sim">Sim</option>
-                            <option value="Não">Não</option>
-                        </select>
-                    </div>
-                </div>
+            <div id="campos_adotante" class="form-group">
+                <label for="possui_ou_ja_teve_pets">Você já possuiu ou já teve pets?</label>
+                <select id="possui_ou_ja_teve_pets" name="possui_ou_ja_teve_pets">
+                    <option value="">Selecione</option>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
 
-                <button type="submit">Cadastrar</button>
-            </form>
-        </div>
+            <button type="submit" class="submit-btn">Cadastrar</button>
+        </form>
     </div>
 
     <script>
-        // Função para mostrar os campos específicos conforme a seleção
-        function mostrarCampos() {
-            const tipo = document.getElementById("tipo_usuario").value;
-            const ongDiv = document.getElementById("campos_ong");
-            const adotanteDiv = document.getElementById("campos_adotante");
+        document.addEventListener('DOMContentLoaded', function() {
+            const tipoUsuario = document.getElementById("tipo_usuario");
+            const camposOng = document.getElementById("campos_ong");
+            const camposAdotante = document.getElementById("campos_adotante");
 
-            // Se a escolha for "ONG", mostra os campos da ONG e esconde os de Adotante
-            if (tipo === "ONG") {
-                ongDiv.style.display = "block";
-                adotanteDiv.style.display = "none";
-            } 
-            // Se a escolha for "Adotante", mostra os campos do Adotante e esconde os de ONG
-            else if (tipo === "Adotante") {
-                adotanteDiv.style.display = "block";
-                ongDiv.style.display = "none";
-            } 
-            // Se nenhuma opção for escolhida, esconde ambos
-            else {
-                ongDiv.style.display = "none";
-                adotanteDiv.style.display = "none";
+            function atualizarCampos() {
+                const tipo = tipoUsuario.value;
+                camposOng.style.display = tipo === "ONG" ? "block" : "none";
+                camposAdotante.style.display = tipo === "Adotante" ? "block" : "none";
             }
-        }
 
-        // Executa a função ao carregar a página e ao alterar a seleção do tipo de usuário
-        window.onload = function () {
-            mostrarCampos();  // Inicializa a visualização conforme a escolha anterior (caso já tenha sido selecionado)
-            document.getElementById("tipo_usuario").addEventListener("change", mostrarCampos);  // Escuta a mudança da seleção
-        };
+            tipoUsuario.addEventListener("change", atualizarCampos);
+            atualizarCampos(); // Inicializa os campos
+        });
     </script>
 </body>
 </html>
