@@ -3,9 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+@keyframes fundoAnimado {
+  0% {
+    background: url("/static/Img/Fundo.png") no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0;
+  }
+
+  100% {
+    background: url("/static/Img/Fundo.png") no-repeat center center fixed;
+    background-size: cover;
+    opacity: 1;;
+  }
+}
+
 
 body {
   min-height: 100vh;
+  animation: fundoAnimado 4s forwards;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background: linear-gradient(135deg, #d49971, #da913e);
   display: flex;
@@ -25,6 +40,17 @@ body {
   max-width: 450px;
   margin: 20px 0;
   animation: fadeIn 0.8s ease-in-out;
+}
+.form-container-cadastro{
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  
+  margin: 40px 20px;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 h2 {
@@ -63,7 +89,7 @@ input:focus, select:focus {
 button {
   width: 100%;
   padding: 0.8rem;
-  background-color: #2575fc;
+  background-color: #373738;
   color: white;
   border: none;
   border-radius: 8px;
@@ -74,7 +100,7 @@ button {
 }
 
 button:hover {
-  background-color: #1a5edb;
+  background-color: #F2B680;
 }
 
 /* Estilos específicos para a página de login */
