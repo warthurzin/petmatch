@@ -1,169 +1,183 @@
-/* Reset básico */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    height: 100vh;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #d49971, #da913e);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #333;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #d49971, #da913e);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #333;
+  padding: 20px;
 }
 
-.login-container {
-    background-color: #fff;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    width: 100%;
-    max-width: 400px;
-    animation: fadeIn 0.8s ease-in-out;
+/* Estilos compartilhados entre login e cadastro */
+.form-container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 450px;
+  margin: 20px 0;
+  animation: fadeIn 0.8s ease-in-out;
 }
 
 h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #333;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.8rem;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
+.form-group {
+  margin-bottom: 1.2rem;
 }
 
 label {
-    margin-bottom: 5px;
-    font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #444;
 }
 
-input {
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+input, select {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
 }
 
-input:focus {
-    border-color: #2575fc;
-    outline: none;
-    box-shadow: 0 0 5px #2575fc44;
+input:focus, select:focus {
+  border-color: #2575fc;
+  outline: none;
+  box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
 }
 
 button {
-    padding: 12px;
-    background-color: #2575fc;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #2575fc;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #1a5edb;
+  background-color: #1a5edb;
 }
 
-.background {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #f1f1f1, #dfe9f3);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 20px;
+/* Estilos específicos para a página de login */
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.cadastro-link {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #555;
+}
+
+.cadastro-link a {
+  color: #2575fc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.cadastro-link a:hover {
+  color: #1a5edb;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+      transform: translateY(20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+      padding: 1.5rem;
   }
   
-  #cadastro-container {
-    background-color: #fff;
-    padding: 40px 50px;
-    border-radius: 16px;
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 550px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-  }
-  
-  #cadastro-container h2 {
-    text-align: center;
-    margin-bottom: 25px;
-    color: #2c3e50;
-  }
-  
-  form label {
-    display: block;
-    margin-top: 18px;
-    font-weight: 500;
-    color: #34495e;
-  }
-  
-  form input,
-  form select {
-    width: 100%;
-    padding: 10px 14px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  }
-  
-  form input:focus,
-  form select:focus {
-    outline: none;
-    border-color: #2980b9;
-  }
-  
-  button {
-    margin-top: 30px;
-    padding: 12px 0;
-    width: 100%;
-    background-color: #2980b9;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  button:hover {
-    background-color: #1f6392;
-  }
-  
-  .tipo-extra-campos {
-    min-height: 100px;
-    transition: all 0.3s ease;
-  }
-  
-  .tipo-extra {
-    animation: fadeIn 0.3s ease;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-5px); }
-    to { opacity: 1; transform: translateY(0); }
+  h2 {
+      font-size: 1.5rem;
   }
   
   .cadastro-link {
-    text-align: center;
-    margin-top: 20px;
+      font-size: 0.9rem;
+  }
+}
+
+.view-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #333;
+}
+
+.view-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+}
+
+.view-header h2 {
+  font-size: 2.2rem;
+  color: #000000;
+  margin-bottom: 0.5rem;
+}
+
+.view-header p {
+  font-size: 1.1rem;
+  color: #666;
+}
+
+/* Estilo específico para Adotante */
+.adotante-view {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+.adotante-view .view-header {
+  border-bottom-color: #2575fc;
+}
+
+/* Estilo específico para ONG */
+.ong-view {
+  background-color: #f0f7ff;
+  min-height: 100vh;
+}
+
+.ong-view .view-header {
+  border-bottom-color: #2575fc;
+}
+
+@media (max-width: 768px) {
+  .view-container {
+      padding: 1.5rem;
   }
   
-  .cadastro-link a {
-    color: #2980b9;
-    text-decoration: none;
-    font-weight: bold;
+  .view-header h2 {
+      font-size: 1.8rem;
   }
-  
-  .cadastro-link a:hover {
-    text-decoration: underline;
-  }
+}
