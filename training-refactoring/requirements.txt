@@ -1,0 +1,10 @@
+torch==2.6.0
+tensorflow==2.19.0
+scikit-learn==1.6.1
+datasets==3.5.0
+evaluate==0.4.3
+scipy==1.15.2
+transformers==4.51.3
+tf-keras==2.19.0
+matplotlib==3.10.1
+accelerate==1.6.0
