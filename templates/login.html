@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div class="form-container">
+        <img src="/static/Img/pets.png" alt="Pets" class="top-image">
         <h2>Login</h2>
         <form class="login-form" action="/login" method="POST">
             <div class="form-group">

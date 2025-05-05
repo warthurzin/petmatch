@@ -1,58 +1,82 @@
+/* Reset básico */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Animação de fundo */
 @keyframes fundoAnimado {
   0% {
-    background: url("/static/Img/Fundo.png") no-repeat center center fixed;
+    background: url("/static/Img/login.png") no-repeat center center fixed;
     background-size: cover;
     opacity: 0;
   }
-
   100% {
-    background: url("/static/Img/Fundo.png") no-repeat center center fixed;
+    background: url("/static/Img/login.png") no-repeat center center fixed;
     background-size: cover;
-    opacity: 1;;
+    opacity: 1;
   }
 }
 
-
+/* Estilo geral do corpo */
 body {
-  min-height: 100vh;
-  animation: fundoAnimado 4s forwards;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #d49971, #da913e);
+  min-height: 100vh;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end; /* Posiciona o formulário à direita */
   align-items: center;
-  color: #333;
-  padding: 20px;
+  animation: fundoAnimado 4s forwards;
 }
 
-/* Estilos compartilhados entre login e cadastro */
+
+/* Imagem no topo do formulário */
+.top-image {
+  width: 120px;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Container do formulário de login */
 .form-container {
-  background-color: #fff;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
   padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 450px;
-  margin: 20px 0;
-  animation: fadeIn 0.8s ease-in-out;
-}
-.form-container-cadastro{
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-  width: 100%;
-  max-width: 450px;
-  
-  margin: 40px 20px;
-  animation: fadeIn 0.6s ease-in-out;
+  border-radius: 0;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeIn 0.4s ease-in-out;
+  z-index: 10;
 }
 
+
+/* Container do formulário de cadastro */
+.form-container-cadastro {
+  
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 0;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  
+  animation: fadeIn 0.4s ease-in-out;
+  z-index: 10;
+}
+
+/* Título */
 h2 {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -60,10 +84,12 @@ h2 {
   font-size: 1.8rem;
 }
 
+/* Grupo de formulário */
 .form-group {
   margin-bottom: 1.2rem;
 }
 
+/* Rótulos */
 label {
   display: block;
   margin-bottom: 0.5rem;
@@ -71,45 +97,43 @@ label {
   color: #444;
 }
 
-input, select {
+/* Campos de entrada */
+input,
+select {
   width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
+  padding: 0.75rem;
+  margin-top: 0.3rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 0.95rem;
 }
 
-input:focus, select:focus {
-  border-color: #2575fc;
-  outline: none;
-  box-shadow: 0 0 5px rgba(37, 117, 252, 0.3);
-}
-
+/* Botão */
 button {
   width: 100%;
-  padding: 0.8rem;
-  background-color: #373738;
+  padding: 0.75rem;
+  margin-top: 1rem;
+  background-color: #6a9bd8;
   color: white;
+  font-weight: bold;
   border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 10px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 button:hover {
-  background-color: #F2B680;
+  background-color: #578cc4;
 }
 
-/* Estilos específicos para a página de login */
+/* Formulário de login */
 .login-form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
 }
 
+/* Link de cadastro */
 .cadastro-link {
   text-align: center;
   margin-top: 1.5rem;
@@ -128,31 +152,43 @@ button:hover {
   text-decoration: underline;
 }
 
+/* Animação de fade in */
 @keyframes fadeIn {
   from {
-      opacity: 0;
-      transform: translateY(20px);
+    opacity: 0;
+    transform: translateY(20px);
   }
   to {
-      opacity: 1;
-      transform: translateY(0);
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-@media (max-width: 480px) {
+/* Responsividade - telas pequenas */
+@media (max-width: 768px) {
+  body {
+    justify-content: center; /* Centraliza o formulário em telas pequenas */
+    padding: 20px;
+  }
+
   .form-container {
-      padding: 1.5rem;
+    padding: 1.5rem;
   }
-  
+
   h2 {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
-  
+
   .cadastro-link {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .view-header h2 {
+    font-size: 1.8rem;
   }
 }
 
+/* Visualização de conteúdo (para outras páginas) */
 .view-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -169,7 +205,7 @@ button:hover {
 
 .view-header h2 {
   font-size: 2.2rem;
-  color: #000000;
+  color: #000;
   margin-bottom: 0.5rem;
 }
 
@@ -178,7 +214,7 @@ button:hover {
   color: #666;
 }
 
-/* Estilo específico para Adotante */
+/* Estilos específicos para Adotante e ONG */
 .adotante-view {
   background-color: #f9f9f9;
   min-height: 100vh;
@@ -187,8 +223,6 @@ button:hover {
 .adotante-view .view-header {
   border-bottom-color: #2575fc;
 }
-
-/* Estilo específico para ONG */
 .ong-view {
   background-color: #f0f7ff;
   min-height: 100vh;
@@ -196,14 +230,4 @@ button:hover {
 
 .ong-view .view-header {
   border-bottom-color: #2575fc;
-}
-
-@media (max-width: 768px) {
-  .view-container {
-      padding: 1.5rem;
-  }
-  
-  .view-header h2 {
-      font-size: 1.8rem;
-  }
 }

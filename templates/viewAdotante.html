@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Página do Adotante</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bem-vindo ao PetMatch</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='inicio.css') }}">
 </head>
-<body class="adotante-view">
-    <div class="view-container">
-        <header class="view-header">
-            <h2>Bem-vindo, Adotante!</h2>
-            <p>Você está logado com sucesso!</p>
-        </header>
-    </div>
+<body>
+  <header>
+    <img src="https://cdn-icons-png.flaticon.com/512/616/616408.png" alt="Logo PetMatch" class="logo">
+    <nav>
+      <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Perfil</a></li>
+        <li><a href="#">Minhas Adoções</a></li>
+        <li><a href="/logout">Sair</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <h1>Olá, bem-vindo(a) ao PetMatch! 🐶</h1>
+    <p>Encontre seu novo melhor amigo agora mesmo.</p>
+    <a href="/cachorros" class="btn">Ver cães para adoção</a>
+
+    <section class="gallery">
+      <img src="https://placedog.net/300?id=1" alt="Cachorro disponível">
+      <img src="https://placedog.net/300?id=2" alt="Cachorro disponível">
+      <img src="https://placedog.net/300?id=3" alt="Cachorro disponível">
+    </section>
+  </main>
 </body>
 </html>
