@@ -1,0 +1,89 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fffefc;
+    color: #333;
+  }
+  
+  h1 {
+    color: #ff914d;
+    font-weight: bold;
+  }
+  
+  p {
+    margin-bottom: 0.4rem;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 16px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+  }
+  
+  .card-header {
+    background-color: #ff914d;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+    text-align: center;
+  }
+  
+  .card-body {
+    font-size: 0.95rem;
+  }
+  
+  .card-footer {
+    background-color: #fff8f2;
+    border-top: 1px solid #ffe1c7;
+  }
+  
+  .badge {
+    font-size: 0.8rem;
+    margin-right: 5px;
+    padding: 0.4em 0.6em;
+  }
+  
+  .btn-primary {
+    background-color: #ff914d;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #e86f23;
+  }
+  
+  .btn-secondary {
+    background-color: #c2c2c2;
+    border: none;
+  }
+  
+  .form-select {
+    border-radius: 8px;
+  }
+  
+  .card-img-top {
+    border-radius: 0;
+  }
+  
+  /* Animação de fundo */
+  .topo-site {
+    background-color: #ff914d;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  
+  .logo {
+    width: 80px;
+   
+  }
+  
+  .nav-link {
+    padding: 0 12px;
+    font-size: 15px;
+  }
+  
+  .nav-link:hover {
+    text-decoration: underline;
+  }
+  
