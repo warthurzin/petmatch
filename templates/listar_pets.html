@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetMatch - Pets Disponíveis</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mt-4 mb-4">
+            <h1>PetMatch</h1>
+            <p>Encontre seu novo melhor amigo</p>
+        </div>
+        
+        <!-- Filtros básicos -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <label for="especie" class="form-label">Espécie</label>
+                        <select class="form-select" id="especie">
+                            <option value="">Todas</option>
+                            <option value="Cachorro">Cachorro</option>
+                            <option value="Gato">Gato</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="porte" class="form-label">Porte</label>
+                        <select class="form-select" id="porte">
+                            <option value="">Todos</option>
+                            <option value="Pequeno">Pequeno</option>
+                            <option value="Médio">Médio</option>
+                            <option value="Grande">Grande</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label for="genero" class="form-label">Gênero</label>
+                        <select class="form-select" id="genero">
+                            <option value="">Todos</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Fêmea">Fêmea</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3 mb-3 d-flex align-items-end">
+                        <button class="btn btn-primary w-100">Filtrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Lista de Pets -->
+        {% if pets %}
+        <div class="row">
+            {% for pet in pets %}
+            <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h5 class="mb-0">{{ pet.nome }}</h5>
+                    </div>
+                    {% if pet.foto_url %}
+                    <img src="{{ pet.foto_url }}" class="card-img-top" alt="{{ pet.nome }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                    <div class="text-center py-5 bg-light">Sem foto</div>
+                    {% endif %}
+                    <div class="card-body">
+                        <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+                        <p><strong>Raça:</strong> {{ pet.raca or "Não informada" }}</p>
+                        <p><strong>Idade:</strong> {{ pet.idade or "Não informada" }}</p>
+                        <p><strong>Porte:</strong> {{ pet.porte }}</p>
+                        <p><strong>Gênero:</strong> {{ pet.genero }}</p>
+                        
+                        <div class="mb-2">
+                            {% if pet.vacinado == 'Sim' %}
+                            <span class="badge bg-success">Vacinado</span>
+                            {% endif %}
+                            {% if pet.castrado == 'Sim' %}
+                            <span class="badge bg-info">Castrado</span>
+                            {% endif %}
+                        </div>
+                        
+                        <p><strong>Descrição:</strong> {{ pet.descricao }}</p>
+                        <p><strong>Status de saúde:</strong> {{ pet.status_saude }}</p>
+                        
+                        {% if pet.necessidades_especiais %}
+                        <p><strong>Necessidades especiais:</strong> {{ pet.necessidades_especiais }}</p>
+                        {% endif %}
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary w-100">Quero Adotar</button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <h4>Nenhum pet disponível no momento</h4>
+            <p>Volte mais tarde ou ajuste os filtros de busca</p>
+        </div>
+        {% endif %}
+        
+        <!-- Paginação simples -->
+        <div class="d-flex justify-content-center mt-4">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Próxima</a></li>
+                </ul>
+            </nav>
+        </div>
+        
+        <div class="text-center mt-4 mb-5">
+            <a href="{{ url_for('pagina_inicial') }}" class="btn btn-secondary">Voltar para Página Inicial</a>
+        </div>
+    </div>
+</body>
+</html>
