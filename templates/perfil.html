@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Perfil do Usuário</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+  <div class="container mt-5">
+    <h2 class="mb-4">Perfil do Usuário</h2>
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title">{{ usuario.nome }}</h5>
+        <p class="card-text"><strong>Email:</strong> {{ usuario.email }}</p>
+        <p class="card-text"><strong>Tipo de Conta:</strong> {{ usuario.tipo }}</p>
+        <p class="card-text"><strong>Data de Cadastro:</strong> {{ usuario.data_cadastro.strftime('%d/%m/%Y') }}</p>
+        <a href="{{ url_for('editar_perfil') }}" class="btn btn-primary">Editar Perfil</a>
+        <a href="{{ url_for('logout') }}" class="btn btn-secondary">Sair</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
