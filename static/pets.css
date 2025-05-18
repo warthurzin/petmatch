@@ -1,11 +1,27 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #fffefc;
-    color: #333;
-  }
-  
+  position: relative;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-image: url('/static/Img/Fundo.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  z-index: 0;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4); /* quanto mais alto, mais escuro (0.1 a 0.6 são bons valores) */
+  z-index: -1; /* coloca a camada atrás do conteúdo */
+}
+
   h1 {
-    color: #ff914d;
+    color: #000000;
     font-weight: bold;
   }
   
@@ -21,7 +37,7 @@ body {
   }
   
   .card-header {
-    background-color: #ff914d;
+    background-color: #6a9bd8;
     color: white;
     font-weight: bold;
     font-size: 1.1rem;
@@ -44,12 +60,12 @@ body {
   }
   
   .btn-primary {
-    background-color: #ff914d;
+    background-color: #6a9bd8;
     border: none;
   }
   
   .btn-primary:hover {
-    background-color: #e86f23;
+    background-color: #586779;
   }
   
   .btn-secondary {
@@ -67,7 +83,7 @@ body {
   
   /* Animação de fundo */
   .topo-site {
-    background-color: #ff914d;
+    background-color: #6a9bd8;
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -86,4 +102,24 @@ body {
   .nav-link:hover {
     text-decoration: underline;
   }
-  
+ .cartao-boas-vindas {
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  max-width: 700px;
+  margin: 40px auto 20px;
+  text-align: center;
+}
+
+.cartao-boas-vindas h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cartao-boas-vindas p {
+  font-size: 18px;
+  color: #555;
+}
+
