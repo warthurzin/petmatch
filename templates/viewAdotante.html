@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -8,13 +9,13 @@
 </head>
 <body>
   <header>
-    <img src="/static/Img/logo.png" alt="Logo PetMatch" class="logo">
+    <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
     <nav>
       <ul>
-        <li><a href="#">Início</a></li>
-        <li><a href="perfil.html">Perfil</a></li>
+        <li><a href="{{ url_for('pagina_inicial') }}">Início</a></li>
+        <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
         <li><a href="#">Minhas Adoções</a></li>
-        <li><a href="/logout">Sair</a></li>
+        <li><a href="{{ url_for('logout') }}">Sair</a></li>
       </ul>
     </nav>
   </header>
@@ -22,7 +23,7 @@
   <main>
     <h1>Olá, bem-vindo(a) ao PetMatch! 🐶</h1>
     <p>Encontre seu novo melhor amigo agora mesmo.</p>
-    <a href="/listar_pets" class="btn">Ver cães para adoção</a>
+    <a href="{{ url_for('listar_pets') }}" class="btn">Ver cães para adoção</a>
 
     <section class="gallery">
       <img src="https://placedog.net/300?id=1" alt="Cachorro disponível">
