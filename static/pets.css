@@ -1,24 +1,26 @@
 body {
   position: relative;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url('/static/Img/Fundo.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  z-index: 0;
+  
+}
+main {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+body, html {
+  margin: 0;
+  padding: 0;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* quanto mais alto, mais escuro (0.1 a 0.6 são bons valores) */
-  z-index: -1; /* coloca a camada atrás do conteúdo */
-}
+  header {
+    background-color: #6a9bd8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 30px;
+    color: white;
+  }
 
   h1 {
     color: #000000;
@@ -84,9 +86,11 @@ body::before {
   /* Animação de fundo */
   .topo-site {
     background-color: #6a9bd8;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 3px 8px;
+    color: white;
   }
   
   .logo {

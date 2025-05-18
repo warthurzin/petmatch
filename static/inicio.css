@@ -1,26 +1,19 @@
 body {
   position: relative;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-image: url('/static/Img/Fundo.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-  z-index: 0;
-}
-
-body::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.4); /* quanto mais alto, mais escuro (0.1 a 0.6 são bons valores) */
-  z-index: -1; /* coloca a camada atrás do conteúdo */
-}
-
   
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
   header {
     background-color: #6a9bd8;
     display: flex;
