@@ -5,7 +5,7 @@ from datasets import load_dataset, DatasetDict, Dataset
 from transformers import AutoTokenizer
 
 class DataManager:
-    def __init__(self, model_name, folder_path='../data/', file_name='train_txt', file_type='.jsonl', split_mode='Hold-out', weights=[0.7, 0.1], k_groups=8):
+    def __init__(self, model_name, folder_path='../data/', file_name='pets_dataset', file_type='.jsonl', split_mode='Hold-out', weights=[0.7, 0.1], k_groups=8):
         self.model_name = model_name
         self.folder_path = folder_path
         self.file_name = file_name

@@ -15,18 +15,15 @@ if __name__ == '__main__':
     config = get_configs(params[1:])
     num_iter = config[1]
     config = [config[0]] + config[2:]
-    plot = PlotManager()
     global_evaluation_metrics_by_run = []
     
     for iter in range(num_iter):
         print('\nIteration {}\n' .format(iter+1))
-        manager = TaskManager(config, plot)
+        manager = TaskManager(config)
         manager.run_classifier()
         global_evaluation_metrics_by_run.append(manager.evaluator.performance)
 
-    manager.plot.save_all_images()
-    print(global_evaluation_metrics_by_run)
-    analyser = StatisticalAnalyzer(['accuracy', 'f1', 'precision', 'recall'], global_evaluation_metrics_by_run)
+    analyser = StatisticalAnalyzer(['quadratic_kappa'], global_evaluation_metrics_by_run)
     analyser.print_analysis()
     print('Done!')
     exit(0)
