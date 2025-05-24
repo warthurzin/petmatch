@@ -5,17 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PetMatch - Cadastro de Pet</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-    <style>
-        .required-field::after {
-            content: "*";
-            color: red;
-            margin-left: 4px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cadastro_pet.css') }}">
 </head>
 <body>
     <div class="container">
         <div class="text-center mt-4 mb-4">
+            <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo mb-3" style="width: 100px;">
             <h1>PetMatch</h1>
             <p>Cadastro de Pet para Adoção</p>
         </div>
@@ -23,19 +19,18 @@
         <div class="card">
             <div class="card-body">
                 <form method="POST" action="{{ url_for('cadastro_pet') }}">
-                    <!-- Informações ocultas -->
-                    <input type="hidden" name="id_usuario" value="{{ session['id_usuario'] }}">
+                    <input type="hidden" name="id_ong" value="{{ session.get('id_usuario') }}">
                     
                     <h4>Informações Básicas</h4>
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="nome" class="form-label required-field">Nome do Pet</label>
-                            <input type="text" class="form-control" id="nome" name="nome" required>
+                            <label for="nome_pet" class="form-label campo-obrigatorio">Nome do Pet</label>
+                            <input type="text" class="form-control" id="nome_pet" name="nome_pet" required>
                         </div>
                         <div class="col-md-6">
-                            <label for="especie" class="form-label required-field">Espécie</label>
-                            <select class="form-select" id="especie" name="especie" required>
+                            <label for="especie_pet" class="form-label campo-obrigatorio">Espécie</label>
+                            <select class="form-select" id="especie_pet" name="especie_pet" required>
                                 <option value="">Selecione...</option>
                                 <option value="Cachorro">Cachorro</option>
                                 <option value="Gato">Gato</option>
@@ -45,16 +40,16 @@
                     
                     <div class="row mb-3">
                         <div class="col-md-4">
-                            <label for="raca" class="form-label">Raça</label>
-                            <input type="text" class="form-control" id="raca" name="raca">
+                            <label for="raca_pet" class="form-label">Raça</label>
+                            <input type="text" class="form-control" id="raca_pet" name="raca_pet">
                         </div>
                         <div class="col-md-4">
-                            <label for="idade" class="form-label">Idade</label>
-                            <input type="text" class="form-control" id="idade" name="idade" placeholder="Ex: 2 anos">
+                            <label for="idade_pet" class="form-label">Idade (Ex: 2 anos)</label>
+                            <input type="text" class="form-control" id="idade_pet" name="idade_pet" placeholder="Ex: 2 anos, 6 meses">
                         </div>
                         <div class="col-md-4">
-                            <label for="genero" class="form-label required-field">Gênero</label>
-                            <select class="form-select" id="genero" name="genero" required>
+                            <label for="genero_pet" class="form-label campo-obrigatorio">Gênero</label>
+                            <select class="form-select" id="genero_pet" name="genero_pet" required>
                                 <option value="">Selecione...</option>
                                 <option value="Macho">Macho</option>
                                 <option value="Fêmea">Fêmea</option>
@@ -64,8 +59,8 @@
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="porte" class="form-label required-field">Porte</label>
-                            <select class="form-select" id="porte" name="porte" required>
+                            <label for="porte_pet" class="form-label campo-obrigatorio">Porte</label>
+                            <select class="form-select" id="porte_pet" name="porte_pet" required>
                                 <option value="">Selecione...</option>
                                 <option value="Pequeno">Pequeno</option>
                                 <option value="Médio">Médio</option>
@@ -73,8 +68,8 @@
                             </select>
                         </div>
                         <div class="col-md-6">
-                            <label for="foto_url" class="form-label">URL da Foto</label>
-                            <input type="text" class="form-control" id="foto_url" name="foto_url">
+                            <label for="foto_url_pet" class="form-label">URL da Foto</label>
+                            <input type="url" class="form-control" id="foto_url_pet" name="foto_url_pet" placeholder="http://example.com/foto.jpg">
                         </div>
                     </div>
                     
@@ -82,49 +77,50 @@
                     
                     <div class="row mb-3">
                         <div class="col-md-6">
-                            <label for="status_saude" class="form-label required-field">Status de Saúde</label>
-                            <select class="form-select" id="status_saude" name="status_saude" required>
+                            <label for="status_saude_pet" class="form-label campo-obrigatorio">Status de Saúde</label>
+                            <select class="form-select" id="status_saude_pet" name="status_saude_pet" required>
                                 <option value="">Selecione...</option>
                                 <option value="Saudável">Saudável</option>
                                 <option value="Em tratamento">Em tratamento</option>
                                 <option value="Requer cuidados especiais">Requer cuidados especiais</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-check mt-4">
-                                <input class="form-check-input" type="checkbox" id="vacinado" name="vacinado" value="Sim">
-                                <label class="form-check-label" for="vacinado">Vacinado</label>
+                        <div class="col-md-6 d-flex align-items-center">
+                            <div class="form-check me-3">
+                                <input class="form-check-input" type="checkbox" id="vacinado_pet" name="vacinado_pet" value="Sim">
+                                <label class="form-check-label" for="vacinado_pet">Vacinado</label>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="castrado" name="castrado" value="Sim">
-                                <label class="form-check-label" for="castrado">Castrado</label>
+                                <input class="form-check-input" type="checkbox" id="castrado_pet" name="castrado_pet" value="Sim">
+                                <label class="form-check-label" for="castrado_pet">Castrado</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="necessidades_especiais" class="form-label">Necessidades Especiais</label>
-                            <textarea class="form-control" id="necessidades_especiais" name="necessidades_especiais" rows="2"></textarea>
+                            <label for="necessidades_especiais_pet" class="form-label">Necessidades Especiais</label>
+                            <textarea class="form-control" id="necessidades_especiais_pet" name="necessidades_especiais_pet" rows="2"></textarea>
                         </div>
                     </div>
                     
                     <div class="row mb-3">
                         <div class="col-12">
-                            <label for="descricao" class="form-label required-field">Descrição</label>
-                            <textarea class="form-control" id="descricao" name="descricao" rows="4" required></textarea>
+                            <label for="descricao_pet" class="form-label campo-obrigatorio">Descrição</label>
+                            <textarea class="form-control" id="descricao_pet" name="descricao_pet" rows="4" required></textarea>
                         </div>
                     </div>
                     
                     <div class="row mt-4">
                         <div class="col-12 d-flex justify-content-end">
-                            <a href="{{ url_for('view_ong') }}" class="btn btn-secondary me-2">Cancelar</a>
-                            <button type="submit" class="btn btn-primary">Cadastrar Pet</button>
+                            <a href="{{ url_for('ver_ong') }}" class="btn botao-secundario-custom me-2">Cancelar</a>
+                            <button type="submit" class="btn botao-primario-custom">Cadastrar Pet</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

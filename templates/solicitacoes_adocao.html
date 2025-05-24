@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solicitações de Adoção</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pets.css') }}">
+</head>
+<body>
+    <header class="cabecalho-app">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center py-2">
+            <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
+            <nav>
+                <ul class="nav">
+                    <li><a href="{{ url_for('ver_ong') }}">Início ONG</a></li>
+                    <li><a href="{{ url_for('cadastro_pet') }}">Cadastrar Novo Pet</a></li>
+                    <li><a href="{{ url_for('meus_pets_ong') }}">Meus Pets</a></li>
+                    <li><a href="{{ url_for('solicitacoes_adocao') }}">Solicitações de Adoção</a></li>
+                    <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <div class="cartao-boas-vindas">
+            <h1>Solicitações de Adoção</h1>
+            <p>Acompanhe e responda às solicitações para seus pets.</p>
+        </div>
+
+        {% if solicitacoes %}
+            <div class="row">
+                {% for solicitacao in solicitacoes %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-cabecalho">Solicitação para: {{ solicitacao.nome_pet }}</div>
+                        <div class="card-corpo">
+                            <p><strong>Adotante:</strong> {{ solicitacao.nome_adotante }} ({{ solicitacao.email_adotante }})</p>
+                            <p><strong>Data:</strong> {{ solicitacao.data_solicitacao }}</p>
+                            <p><strong>Status:</strong> <span class="badge {% if solicitacao.status == 'Pendente' %}badge-alerta{% elif solicitacao.status == 'Aprovada' %}badge-sucesso{% else %}badge-erro{% endif %}">{{ solicitacao.status }}</span></p>
+                            {% if solicitacao.mensagem %}
+                            <p><strong>Mensagem do Adotante:</strong> {{ solicitacao.mensagem }}</p>
+                            {% endif %}
+                            
+                            <hr>
+                            {% if solicitacao.status == 'Pendente' %}
+                            <form action="#" method="POST" style="display:inline;">
+                                <button type="submit" class="btn botao-primario-custom btn-sm me-2">Aprovar</button>
+                            </form>
+                            <form action="#" method="POST" style="display:inline;">
+                                <button type="submit" class="btn botao-secundario-custom btn-sm">Rejeitar</button>
+                            </form>
+                            {% else %}
+                                <p class="text-muted">Ação já tomada.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center py-4" role="alert">
+                <i class="fas fa-bell me-2"></i> Sua ONG não possui novas solicitações de adoção no momento.
+                <p class="mt-2 mb-0">Que tal <a href="{{ url_for('cadastro_pet') }}">cadastrar mais pets</a> para adoção?</p>
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4 mb-5">
+            <a href="{{ url_for('ver_ong') }}" class="btn botao-secundario-custom">Voltar para Dashboard</a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</body>
+</html>

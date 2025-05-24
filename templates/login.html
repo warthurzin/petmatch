@@ -4,33 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <div class="form-container">
-        <img src="/static/Img/pets.png" alt="Pets" class="top-image">
+    <div class="container-form">
+        <img src="{{ url_for('static', filename='Img/pets.png') }}" alt="Pets" class="imagem-topo">
         <h2>Login</h2>
-        <form class="login-form" action="/login" method="POST">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
+
+        {% if error %}
+        <div class="mensagem-erro">{{ error }}</div>
+        {% endif %}
+        {% if success %}
+        <div class="mensagem-sucesso">{{ success }}</div>
+        {% endif %}
+
+        <form class="form-login" action="/login" method="POST">
+            <div class="form-grupo">
+                <label for="email_login">E-mail</label>
+                <input type="email" id="email_login" name="email_login" required>
             </div>
 
-            <div class="form-group">
-                <label for="senha">Senha</label>
-                <input type="password" id="senha" name="senha" required>
+            <div class="form-grupo">
+                <label for="senha_login">Senha</label>
+                <input type="password" id="senha_login" name="senha_login" required>
             </div>
 
-            <button type="submit">Entrar</button>
+            <button type="submit" class="botao-submit botao-primario-custom">Entrar</button>
             <div class="separador">ou</div>
 
             <a href="/login/google" class="botao-google">
-              <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="google-icon">
+              <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="icone-google">
               Entrar com Google
             </a>
             
         </form>
-        <p class="cadastro-link">Não tem conta? <a href="/cadastro">Clique aqui para se cadastrar</a></p>
+        <p class="link-cadastro">Não tem conta? <a href="{{ url_for('cadastro') }}">Clique aqui para se cadastrar</a></p>
     </div>
 </body>
 </html>

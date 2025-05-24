@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Pets - ONG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pets.css') }}">
+</head>
+<body>
+    <header class="cabecalho-app">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center py-2">
+            <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('ver_ong') }}">Início ONG</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('cadastro_pet') }}">Cadastrar Novo Pet</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('meus_pets_ong') }}">Meus Pets</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('solicitacoes_adocao') }}">Solicitações de Adoção</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('perfil') }}">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('logout') }}">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        <div class="cartao-boas-vindas">
+            <h1>Meus Pets Cadastrados</h1>
+            <p>Gerencie os animais que sua ONG disponibilizou para adoção.</p>
+        </div>
+
+        {% if pets %}
+            <div class="row">
+                {% for pet in pets %}
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <div class="card-cabecalho">
+                            {{ pet.nome }}
+                        </div>
+                        {% if pet.foto_url %}
+                        <img src="{{ pet.foto_url }}" class="card-img-topo" alt="{{ pet.nome }}" style="height: 200px; object-fit: cover;">
+                        {% else %}
+                        <div class="placeholder-imagem-pet">
+                            <i class="fas fa-paw fa-3x"></i><br>
+                            <span>Sem foto disponível</span>
+                        </div>
+                        {% endif %}
+                        <div class="card-corpo">
+                            <p><strong>Espécie:</strong> {{ pet.especie }}</p>
+                            <p><strong>Raça:</strong> {{ pet.raca or "Não informada" }}</p>
+                            <p><strong>Status Adoção:</strong> <span class="badge {% if pet.status_adocao == 'Disponível' %}badge-sucesso{% elif pet.status_adocao == 'Adotado' %}badge-info{% else %}badge-alerta{% endif %}">{{ pet.status_adocao }}</span></p>
+                        </div>
+                        <div class="card-rodape bg-white border-0">
+                            <a href="#" class="btn botao-primario-custom w-100 mb-2">Editar Pet</a>
+                            <a href="{{ url_for('solicitacoes_adocao', pet_id=pet.id) }}" class="btn botao-secundario-custom w-100">Ver Solicitações</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center py-4" role="alert">
+                <i class="fas fa-box-open me-2"></i> Sua ONG ainda não cadastrou nenhum pet para adoção.
+                <p class="mt-2 mb-0">Que tal <a href="{{ url_for('cadastro_pet') }}">cadastrar seu primeiro pet</a>?</p>
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4 mb-5">
+            <a href="{{ url_for('ver_ong') }}" class="btn botao-secundario-custom">Voltar para Dashboard</a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</body>
+</html>

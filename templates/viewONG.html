@@ -3,17 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Página da ONG</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pets.css') }}">
 </head>
-<body class="ong-view">
-    <div class="view-container">
-        <header class="view-header">
+<body class="view-ong">
+    <header class="cabecalho-app">
+        <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('ver_ong') }}">Início ONG</a></li>
+                <li><a href="{{ url_for('cadastro_pet') }}">Cadastrar Novo Pet</a></li>
+                <li><a href="{{ url_for('meus_pets_ong') }}">Meus Pets</a></li>
+                <li><a href="{{ url_for('solicitacoes_adocao') }}">Solicitações de Adoção</a></li>
+                <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
+                <li><a href="{{ url_for('logout') }}">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container-visualizacao">
+        <header class="cabecalho-visualizacao">
             <h2>Bem-vinda, ONG!</h2>
-            <p>Você está logada com sucesso!</p>
+            <p>Você está logada com sucesso e pronta para gerenciar seus pets e adoções.</p>
         </header>
+
+        <section class="dashboard-ong row">
+            <div class="col-md-4 mb-4">
+                <div class="card texto-centralizado p-3">
+                    <i class="fas fa-paw icone-card"></i>
+                    <h3>Cadastrar Pet</h3>
+                    <p>Adicione um novo animal disponível para adoção.</p>
+                    <a href="{{ url_for('cadastro_pet') }}" class="btn botao-primario-custom mt-3">Cadastrar Pet</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card texto-centralizado p-3">
+                    <i class="fas fa-list-alt icone-card"></i>
+                    <h3>Meus Pets</h3>
+                    <p>Visualize e edite os animais que você já cadastrou.</p>
+                    <a href="{{ url_for('meus_pets_ong') }}" class="btn botao-secundario-custom mt-3">Ver Meus Pets</a>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card texto-centralizado p-3">
+                    <i class="fas fa-envelope-open-text icone-card"></i>
+                    <h3>Solicitações</h3>
+                    <p>Acompanhe e gerencie as solicitações de adoção.</p>
+                    <a href="{{ url_for('solicitacoes_adocao') }}" class="btn botao-secundario-custom mt-3">Ver Solicitações</a>
+                </div>
+            </div>
+        </section>
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
-</html>
-
-
+</html> 

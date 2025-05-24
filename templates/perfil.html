@@ -5,35 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Perfil do Usuário</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="{{ url_for('static', filename='perfil.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/perfil.css') }}" />
 </head>
-<body class="bg-light">
+<body class="corpo-claro">
   <div class="container py-5 d-flex justify-content-center">
-    <div class="card profile-card p-4 text-center">
-      <img src="https://via.placeholder.com/100" class="rounded-circle mb-3 border shadow-sm" alt="Avatar">
+    <div class="card cartao-perfil p-4 text-center">
+      <img src="https://via.placeholder.com/100" class="rounded-circle mb-3 borda-sombra" alt="Avatar">
       <h3 class="mb-1">{{ usuario.nome }}</h3>
       <p class="text-muted mb-3">{{ usuario.email }}</p>
 
-      <ul class="list-group list-group-flush text-start mb-4">
+      <ul class="list-group list-group-flush texto-alinhado-esquerda mb-4">
         <li class="list-group-item">
           <strong>Tipo de Conta:</strong> {{ usuario.tipo_usuario }}
         </li>
+        {% if usuario.data_cadastro_formatada %}
         <li class="list-group-item">
-          <strong>Data de Cadastro:</strong> {{ usuario.data_cadastro }}
+          <strong>Data de Cadastro:</strong> {{ usuario.data_cadastro_formatada }}
         </li>
+        {% endif %}
+        {% if usuario.tipo_usuario == 'Adotante' %}
+        <li class="list-group-item">
+          <strong>Já possuiu pets:</strong> {{ usuario.possui_ou_ja_teve_pets or 'Não informado' }}
+        </li>
+        {% endif %}
+        {% if usuario.tipo_usuario == 'ONG' %}
+        <li class="list-group-item">
+          <strong>Status Verificação:</strong> {{ usuario.status_verificacao or 'Não informado' }}
+        </li>
+        <li class="list-group-item">
+          <strong>Documento:</strong> {{ usuario.documento_verificacao or 'Não informado' }}
+        </li>
+        {% endif %}
       </ul>
 
       <div>
-        <a href="{{ url_for('editar_perfil') }}" class="btn btn-primary me-2">
-          <i class="fas fa-edit"></i> Editar Perfil
+        <a href="{{ url_for('editar_perfil') }}" class="btn botao-primario-custom me-2">
+          <i class="fas fa-edit me-2"></i> Editar Perfil
         </a>
-        <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">
-          <i class="fas fa-sign-out-alt"></i> Sair
+        <a href="{{ url_for('logout') }}" class="btn botao-outline-danger">
+          <i class="fas fa-sign-out-alt me-2"></i> Sair
         </a>
       </div>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
 </body>
-</html>
-|
+</html> 

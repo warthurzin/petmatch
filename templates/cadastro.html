@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="form-container-cadastro">
         <h2>Cadastro</h2>
-        <form action="/cadastro" method="post">
-            <div class="form-group">
+
+        {% if error %}
+        <div class="mensagem-erro">{{ error }}</div>
+        {% endif %}
+
+        <form action="/cadastro" method="post" id="formCadastro">
+            <div class="form-grupo">
                 <label for="tipo_usuario">Tipo de usuário:</label>
                 <select id="tipo_usuario" name="tipo_usuario" required>
                     <option value="">Selecione</option>
@@ -19,47 +25,53 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label for="nome">Nome:</label>
-                <input type="text" id="nome" name="nome" required>
+            <div class="form-grupo">
+                <label for="nome_usuario">Nome:</label>
+                <input type="text" id="nome_usuario" name="nome_usuario" required>
             </div>
 
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+            <div class="form-grupo">
+                <label for="email_usuario">E-mail:</label>
+                <input type="email" id="email_usuario" name="email_usuario" required>
             </div>
 
-            <div class="form-group">
-                <label for="senha">Senha:</label>
-                <input type="password" id="senha" name="senha" required>
+            <div class="form-grupo">
+                <label for="senha_usuario">Senha:</label>
+                <input type="password" id="senha_usuario" name="senha_usuario" required>
             </div>
 
-            <div class="form-group">
-                <label for="telefone">Telefone:</label>
-                <input type="text" id="telefone" name="telefone">
+            <div class="form-grupo">
+                <label for="confirmar_senha_usuario">Confirmar Senha:</label>
+                <input type="password" id="confirmar_senha_usuario" name="confirmar_senha_usuario" required>
+                <small id="ajudaConfirmarSenha" class="texto-ajuda erro-cor"></small>
             </div>
 
-            <div class="form-group">
-                <label for="endereco">Endereço:</label>
-                <input type="text" id="endereco" name="endereco">
+            <div class="form-grupo">
+                <label for="telefone_usuario">Telefone:</label>
+                <input type="text" id="telefone_usuario" name="telefone_usuario">
             </div>
 
-            <div id="campos_ong" class="form-group">
-                <label for="documento_verificacao">Documento de Verificação (ONG):</label>
-                <input type="text" id="documento_verificacao" name="documento_verificacao">
-                <input type="hidden" name="status_verificacao" value="Pendente">
+            <div class="form-grupo">
+                <label for="endereco_usuario">Endereço:</label>
+                <input type="text" id="endereco_usuario" name="endereco_usuario">
             </div>
 
-            <div id="campos_adotante" class="form-group">
-                <label for="possui_ou_ja_teve_pets">Você já possuiu ou já teve pets?</label>
-                <select id="possui_ou_ja_teve_pets" name="possui_ou_ja_teve_pets">
+            <div id="campos_ong" class="form-grupo" style="display:none;">
+                <label for="documento_verificacao_ong">Documento de Verificação (CNPJ/Outro):</label>
+                <input type="text" id="documento_verificacao_ong" name="documento_verificacao_ong">
+                <input type="hidden" name="status_verificacao_ong" value="Pendente">
+            </div>
+
+            <div id="campos_adotante" class="form-grupo" style="display:none;">
+                <label for="possui_ja_teve_pets_adotante">Você já possuiu ou já teve pets?</label>
+                <select id="possui_ja_teve_pets_adotante" name="possui_ja_teve_pets_adotante">
                     <option value="">Selecione</option>
                     <option value="Sim">Sim</option>
                     <option value="Não">Não</option>
                 </select>
             </div>
 
-            <button type="submit" class="submit-btn">Cadastrar</button>
+            <button type="submit" class="botao-submit botao-primario-custom">Cadastrar</button>
         </form>
     </div>
 
@@ -68,15 +80,48 @@
             const tipoUsuario = document.getElementById("tipo_usuario");
             const camposOng = document.getElementById("campos_ong");
             const camposAdotante = document.getElementById("campos_adotante");
+            const senhaInput = document.getElementById("senha_usuario");
+            const confirmarSenhaInput = document.getElementById("confirmar_senha_usuario");
+            const ajudaConfirmarSenha = document.getElementById("ajudaConfirmarSenha");
+            const formCadastro = document.getElementById("formCadastro");
 
             function atualizarCampos() {
                 const tipo = tipoUsuario.value;
                 camposOng.style.display = tipo === "ONG" ? "block" : "none";
                 camposAdotante.style.display = tipo === "Adotante" ? "block" : "none";
+
+                camposOng.querySelectorAll('input, select').forEach(el => {
+                    if (tipo === "ONG") el.setAttribute('required', '');
+                    else el.removeAttribute('required');
+                });
+                camposAdotante.querySelectorAll('input, select').forEach(el => {
+                    if (tipo === "Adotante") el.setAttribute('required', '');
+                    else el.removeAttribute('required');
+                });
+            }
+
+            function validarSenhas() {
+                if (senhaInput.value !== confirmarSenhaInput.value) {
+                    ajudaConfirmarSenha.textContent = "As senhas não coincidem.";
+                    confirmarSenhaInput.setCustomValidity("As senhas não coincidem.");
+                } else {
+                    ajudaConfirmarSenha.textContent = "";
+                    confirmarSenhaInput.setCustomValidity("");
+                }
             }
 
             tipoUsuario.addEventListener("change", atualizarCampos);
-            atualizarCampos(); // Inicializa os campos
+            senhaInput.addEventListener("keyup", validarSenhas);
+            confirmarSenhaInput.addEventListener("keyup", validarSenhas);
+
+            formCadastro.addEventListener("submit", function(evento) {
+                validarSenhas();
+                if (!formCadastro.checkValidity()) {
+                    evento.preventDefault();
+                }
+            });
+
+            atualizarCampos();
         });
     </script>
 </body>

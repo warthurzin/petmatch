@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Pet - {{ pet.nome }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pets.css') }}">
+</head>
+<body>
+    <header class="cabecalho-app">
+        <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('pagina_inicial') }}">Início</a></li>
+                <li><a href="{{ url_for('listar_pets') }}">Ver Pets</a></li>
+                <li><a href="{{ url_for('perfil') }}">Perfil</a></li>
+                <li><a href="{{ url_for('logout') }}">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container mt-5">
+        {% if request.args.get('success') %}
+        <div class="mensagem-sucesso">{{ request.args.get('success') }}</div>
+        {% endif %}
+        {% if request.args.get('error') %}
+        <div class="mensagem-erro">{{ request.args.get('error') }}</div>
+        {% endif %}
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card p-4">
+                    <div class="row">
+                        <div class="col-md-6">
+                            {% if pet.foto_url %}
+                            <img src="{{ pet.foto_url }}" class="img-fluid rounded mb-3" alt="{{ pet.nome }}" style="height: 300px; object-fit: cover;">
+                            {% else %}
+                            <div class="placeholder-imagem-pet rounded mb-3" style="height: 300px;">
+                                <i class="fas fa-paw fa-4x"></i><br>
+                                <span>Sem foto disponível</span>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-6">
+                            <h2>{{ pet.nome }} <small class="text-muted">({{ pet.especie }})</small></h2>
+                            <p><strong>Raça:</strong> {{ pet.raca or "Não informada" }}</p>
+                            <p><strong>Idade:</strong> {{ pet.idade or "Não informada" }}</p>
+                            <p><strong>Gênero:</strong> {{ pet.genero }}</p>
+                            <p><strong>Porte:</strong> {{ pet.porte }}</p>
+                            <p><strong>Status de Saúde:</strong> {{ pet.status_saude }}</p>
+
+                            <div class="mb-3">
+                                {% if pet.vacinado == 'Sim' %}
+                                <span class="badge badge-sucesso me-2">Vacinado</span>
+                                {% endif %}
+                                {% if pet.castrado == 'Sim' %}
+                                <span class="badge badge-info">Castrado</span>
+                                {% endif %}
+                            </div>
+
+                            <p><strong>Descrição:</strong> {{ pet.descricao }}</p>
+                            {% if pet.necessidades_especiais %}
+                            <p><strong>Necessidades Especiais:</strong> {{ pet.necessidades_especiais }}</p>
+                            {% endif %}
+                            
+                            <hr>
+
+                            {% if 'id_usuario' not in session %}
+                                <div class="alert alert-warning text-center" role="alert">
+                                    Para adotar, faça <a href="{{ url_for('login') }}">login</a> ou <a href="{{ url_for('cadastro') }}">cadastre-se</a>.
+                                </div>
+                            {% elif session.get('tipo_usuario') != 'Adotante' %}
+                                <div class="alert alert-warning text-center" role="alert">
+                                    Apenas Adotantes podem solicitar adoção.
+                                </div>
+                            {% elif pet.status_adocao != 'Disponível' %}
+                                <div class="alert alert-info text-center" role="alert">
+                                    Este pet não está disponível para adoção no momento. Status: <strong>{{ pet.status_adocao }}</strong>
+                                </div>
+                            {% elif solicitacao_existente %}
+                                <div class="alert alert-info text-center" role="alert">
+                                    Você já enviou uma solicitação para este pet. Status: <strong>{{ solicitacao_existente.status }}</strong>
+                                    <br><a href="{{ url_for('minhas_adocoes') }}" class="btn btn-sm btn-info mt-2">Ver Minhas Solicitações</a>
+                                </div>
+                            {% else %}
+                                <form action="{{ url_for('solicitar_adocao', id_pet=pet.id) }}" method="POST">
+                                    <div class="form-grupo mb-3">
+                                        <label for="mensagem">Mensagem para a ONG (opcional):</label>
+                                        <textarea class="form-control" id="mensagem" name="mensagem" rows="3" placeholder="Conte um pouco sobre você e por que quer adotar este pet."></textarea>
+                                    </div>
+                                    <button type="submit" class="btn botao-primario-custom w-100">Quero Adotar</button>
+                                </form>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4 mb-5">
+                <a href="{{ url_for('listar_pets') }}" class="btn botao-secundario-custom">Voltar para a Lista de Pets</a>
+            </div>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+    </body>
+    </html>

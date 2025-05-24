@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Adoções</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pets.css') }}">
+</head>
+<body>
+    <header class="cabecalho-app">
+        <div class="container-fluid px-4 d-flex justify-content-between align-items-center py-2">
+            <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
+            <nav>
+                <ul class="nav">
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('pagina_inicial') }}">Início</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('perfil') }}">Perfil</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('minhas_adocoes') }}">Minhas Adoções</a></li>
+                    <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('logout') }}">Sair</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container mt-5">
+        {% if request.args.get('success') %}
+        <div class="mensagem-sucesso">{{ request.args.get('success') }}</div>
+        {% endif %}
+        {% if request.args.get('error') %}
+        <div class="mensagem-erro">{{ request.args.get('error') }}</div>
+        {% endif %}
+
+        <div class="cartao-boas-vindas">
+            <h1>Minhas Adoções</h1>
+            <p>Gerencie seus processos de adoção aqui.</p>
+        </div>
+
+        {% if adocoes %}
+            <div class="row">
+                {% for adocao in adocoes %}
+                <div class="col-md-6 mb-4">
+                    <div class="card">
+                        <div class="card-cabecalho">Solicitação para: {{ adocao.nome_pet }}</div>
+                        <div class="card-corpo">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    {% if adocao.foto_pet %}
+                                    <img src="{{ adocao.foto_pet }}" class="img-fluid rounded-start" alt="{{ adocao.nome_pet }}" style="height: 120px; width: 100%; object-fit: cover;">
+                                    {% else %}
+                                    <div class="placeholder-imagem-pet rounded-start" style="height: 120px;">
+                                        <i class="fas fa-paw"></i>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body py-0">
+                                        <p class="mb-1"><strong>Pet:</strong> {{ adocao.nome_pet }} ({{ adocao.especie_pet }})</p>
+                                        <p class="mb-1"><strong>Status:</strong> <span class="badge {% if adocao.status == 'Pendente' %}badge-alerta{% elif adocao.status == 'Aprovada' %}badge-sucesso{% else %}badge-erro{% endif %}">{{ adocao.status }}</span></p>
+                                        <p class="mb-1"><strong>Data da Solicitação:</strong> {{ adocao.data_solicitacao }}</p>
+                                        {% if adocao.mensagem %}
+                                        <p class="mb-1"><strong>Sua Mensagem:</strong> {{ adocao.mensagem | truncate(50, True) }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-rodape">
+                            <a href="{{ url_for('ver_detalhes_pet', id_pet=adocao.id_pet) }}" class="btn botao-primario-custom btn-sm">Ver Detalhes do Pet</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-info text-center py-4" role="alert">
+                <i class="fas fa-info-circle me-2"></i> Você ainda não tem nenhuma solicitação ou adoção registrada.
+                <p class="mt-2 mb-0">Que tal <a href="{{ url_for('listar_pets') }}">encontrar seu novo melhor amigo</a>?</p>
+            </div>
+        {% endif %}
+
+        <div class="text-center mt-4 mb-5">
+            <a href="{{ url_for('pagina_inicial') }}" class="btn botao-secundario-custom">Voltar para Página Inicial</a>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/js/all.min.js"></script>
+</body>
+</html>

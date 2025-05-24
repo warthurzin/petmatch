@@ -5,85 +5,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PetMatch - Pets Disponíveis</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="{{ url_for('static', filename='pets.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/pets.css') }}">
 </head>
 <body>
 
-  <!-- TOPO -->
-  <header class="topo-site">
+  <header class="cabecalho-app">
     <div class="container-fluid px-4 d-flex justify-content-between align-items-center py-2">
-      <img src="/static/Img/logo.png" alt="Logo PetMatch" class="logo">
+      <img src="{{ url_for('static', filename='Img/logo.png') }}" alt="Logo PetMatch" class="logo">
       <nav>
         <ul class="nav">
-          <li class="nav-item"><a class="nav-link text-white fw-bold" href="/templates/viewAdotante.html">Início</a></li>
-          <li class="nav-item"><a class="nav-link text-white fw-bold" href="/templates/">Perfil</a></li>
-          <li class="nav-item"><a class="nav-link text-white fw-bold" href="#">Minhas Adoções</a></li>
-          <li class="nav-item"><a class="nav-link text-white fw-bold" href="/logout">Sair</a></li>
+          <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('pagina_inicial') }}">Início</a></li>
+          <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('perfil') }}">Perfil</a></li>
+          <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('minhas_adocoes') }}">Minhas Adoções</a></li>
+          <li class="nav-item"><a class="nav-link texto-branco negrito" href="{{ url_for('logout') }}">Sair</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- CONTEÚDO -->
   <div class="container">
     <div class="cartao-boas-vindas">
-  <h1>Pets Disponíveis para Adoção</h1>
-  <p>Encontre o seu novo melhor amigo!</p>
-</div>
-  
+      <h1>Pets Disponíveis para Adoção</h1>
+      <p>Encontre o seu novo melhor amigo!</p>
+    </div>
       
-
-    <!-- Filtros -->
     <div class="card mb-4">
       <div class="card-body">
-        <div class="row">
-          <div class="col-md-3 mb-3">
-            <label for="especie" class="form-label">Espécie</label>
-            <select class="form-select" id="especie">
-              <option value="">Todas</option>
-              <option value="Cachorro">Cachorro</option>
-              <option value="Gato">Gato</option>
-            </select>
+        <form id="form_filtro">
+          <div class="row">
+            <div class="col-md-3 mb-3">
+              <label for="especie_filtro" class="form-label">Espécie</label>
+              <select class="form-select" id="especie_filtro" name="especie_filtro">
+                <option value="">Todas</option>
+                <option value="Cachorro">Cachorro</option>
+                <option value="Gato">Gato</option>
+              </select>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="porte_filtro" class="form-label">Porte</label>
+              <select class="form-select" id="porte_filtro" name="porte_filtro">
+                <option value="">Todos</option>
+                <option value="Pequeno">Pequeno</option>
+                <option value="Médio">Médio</option>
+                <option value="Grande">Grande</option>
+              </select>
+            </div>
+            <div class="col-md-3 mb-3">
+              <label for="genero_filtro" class="form-label">Gênero</label>
+              <select class="form-select" id="genero_filtro" name="genero_filtro">
+                <option value="">Todos</option>
+                <option value="Macho">Macho</option>
+                <option value="Fêmea">Fêmea</option>
+              </select>
+            </div>
+            <div class="col-md-3 mb-3 d-flex align-items-end">
+              <button type="submit" class="btn botao-primario-custom w-100">Filtrar</button>
+            </div>
           </div>
-          <div class="col-md-3 mb-3">
-            <label for="porte" class="form-label">Porte</label>
-            <select class="form-select" id="porte">
-              <option value="">Todos</option>
-              <option value="Pequeno">Pequeno</option>
-              <option value="Médio">Médio</option>
-              <option value="Grande">Grande</option>
-            </select>
-          </div>
-          <div class="col-md-3 mb-3">
-            <label for="genero" class="form-label">Gênero</label>
-            <select class="form-select" id="genero">
-              <option value="">Todos</option>
-              <option value="Macho">Macho</option>
-              <option value="Fêmea">Fêmea</option>
-            </select>
-          </div>
-          <div class="col-md-3 mb-3 d-flex align-items-end">
-            <button class="btn btn-primary w-100">Filtrar</button>
-          </div>
-        </div>
+        </form>
       </div>
     </div>
 
-    <!-- Lista de Pets -->
     {% if pets %}
     <div class="row">
       {% for pet in pets %}
       <div class="col-md-4 mb-4">
         <div class="card h-100">
-          <div class="card-header text-white bg-orange text-center fw-bold">
+          <div class="card-cabecalho">
             {{ pet.nome }}
           </div>
           {% if pet.foto_url %}
-          <img src="{{ pet.foto_url }}" class="card-img-top" alt="{{ pet.nome }}" style="height: 200px; object-fit: cover;">
+          <img src="{{ pet.foto_url }}" class="card-img-topo" alt="{{ pet.nome }}" style="height: 200px; object-fit: cover;">
           {% else %}
-          <div class="text-center py-5 bg-light">Sem foto</div>
+          <div class="placeholder-imagem-pet">
+            <i class="fas fa-paw fa-3x"></i><br>
+            <span>Sem foto disponível</span>
+          </div>
           {% endif %}
-          <div class="card-body">
+          <div class="card-corpo">
             <p><strong>Espécie:</strong> {{ pet.especie }}</p>
             <p><strong>Raça:</strong> {{ pet.raca or "Não informada" }}</p>
             <p><strong>Idade:</strong> {{ pet.idade or "Não informada" }}</p>
@@ -92,10 +93,10 @@
 
             <div class="mb-2">
               {% if pet.vacinado == 'Sim' %}
-              <span class="badge bg-success">Vacinado</span>
+              <span class="badge badge-sucesso">Vacinado</span>
               {% endif %}
               {% if pet.castrado == 'Sim' %}
-              <span class="badge bg-info">Castrado</span>
+              <span class="badge badge-info">Castrado</span>
               {% endif %}
             </div>
 
@@ -106,8 +107,8 @@
             <p><strong>Necessidades especiais:</strong> {{ pet.necessidades_especiais }}</p>
             {% endif %}
           </div>
-          <div class="card-footer bg-white border-0">
-            <button class="btn btn-primary w-100">Quero Adotar</button>
+          <div class="card-rodape bg-white border-0">
+              <a href="{{ url_for('ver_detalhes_pet', id_pet=pet.id) }}" class="btn botao-primario-custom w-100">Ver Detalhes / Adotar</a>
           </div>
         </div>
       </div>
@@ -120,7 +121,6 @@
     </div>
     {% endif %}
 
-    <!-- Paginação -->
     <div class="d-flex justify-content-center mt-4">
       <nav>
         <ul class="pagination">
@@ -134,8 +134,27 @@
     </div>
 
     <div class="text-center mt-4 mb-5">
-      <a href="{{ url_for('pagina_inicial') }}" class="btn btn-secondary">Voltar para Página Inicial</a>
+      <a href="{{ url_for('pagina_inicial') }}" class="btn botao-secundario-custom">Voltar para Página Inicial</a>
     </div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('form_filtro').addEventListener('submit', function(evento) {
+        evento.preventDefault();
+
+        const especie = document.getElementById('especie_filtro').value;
+        const porte = document.getElementById('porte_filtro').value;
+        const genero = document.getElementById('genero_filtro').value;
+
+        let url = new URL(window.location.href.split('?')[0]);
+
+        if (especie) url.searchParams.append('especie_filtro', especie);
+        if (porte) url.searchParams.append('porte_filtro', porte);
+        if (genero) url.searchParams.append('genero_filtro', genero);
+
+        window.location.href = url.toString();
+    });
+  </script>
 </body>
-</html>
+</html> 
