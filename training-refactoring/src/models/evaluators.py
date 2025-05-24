@@ -3,10 +3,10 @@ import numpy as np
 import evaluate
 import time
 from transformers import DataCollatorWithPadding, Trainer, AutoModelForSequenceClassification, TrainingArguments
-from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import cohen_kappa_score
 
 class Evaluator:
-    def __init__(self, model_name, tokenizer, device, dataset, num_labels=2, max_length=512, output_dir='./result'):
+    def __init__(self, model_name, tokenizer, device, dataset, num_labels=5, max_length=512, output_dir='./result'):
         self.model_name = model_name
         self.tokenizer = tokenizer
         self.device = device
@@ -56,14 +56,11 @@ class Evaluator:
         self.preds = np.argmax(self.predictions.predictions, axis=-1)
     
     def evaluate_performance(self, task='mrpc'):
-        metric = evaluate.load('glue', task)
-        accuracy_f1_score = metric.compute(predictions=self.preds, references=self.predictions.label_ids)
-        precision = precision_score(self.predictions.label_ids, self.preds)
-        recall = recall_score(self.predictions.label_ids, self.preds)
-        self.performance = {**accuracy_f1_score, 'precision': precision,'recall': recall}
+        qwk = cohen_kappa_score(self.predictions.label_ids, self.preds, weights='quadratic')
+        self.performance = {'quadratic_kappa': qwk}
         print('\nPerformance results: ', self.performance)
         print(f'\nAverage time by sample: {self.time_by_samples:.6f}s\n')
-        
+            
     def run_training_pipeline(self):
         self.empty_cache()
         self.start_model()

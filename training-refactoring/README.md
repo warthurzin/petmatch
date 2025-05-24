@@ -1,6 +1,6 @@
-# Name
+# PetAdoptionSpeed
 
-xxx
+PetAdoptionSpeed is an NLP-driven project focused on analyzing pet adoption speed using pre-trained language models. It aims to classify or predict adoption patterns based on real-world data.
 
 ## Requirements
 

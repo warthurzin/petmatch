@@ -1,12 +1,10 @@
 from config.config import *
 from data.data_manager import *
 from models.evaluators import *
-from plot.plot import *
 
 class TaskManager:
-    def __init__(self, config, plot):
+    def __init__(self, config):
         self.config = config
-        self.plot = plot
         self.initialize_dataset()
 
     def initialize_dataset(self):
@@ -17,7 +15,6 @@ class TaskManager:
     
     def run_classifier(self):
         self.initialize_model()
-        self.plot.plot_confusion_matrix(['Detection'], [['0', '1']], [[pred] for pred in self.evaluator.preds], [[label] for label in self.evaluator.predictions.label_ids])
         if self.config[1] == 'K-fold cross-validation' and self.ds.k_eval < self.ds.k_groups:
             self.ds.update_distribution_folds()
             self.ds.tokenize_dataset()
