@@ -1,0 +1,26 @@
+/* static/css/cadastro_pet.css */
+
+body {
+    background-color: #f8f9fa;
+}
+.container {
+    max-width: 800px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.card {
+    border-radius: 1rem;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+}
+.card-header {
+    background-color: #6a9bd8;
+    color: white;
+    font-size: 1.25rem;
+    font-weight: bold;
+    border-bottom: none;
+    border-top-left-radius: 1rem;
+    border-top-right-radius: 1rem;
+}
+.form-check-input {
+    margin-right: 8px;
+}

@@ -1,0 +1,106 @@
+/* static/css/pets.css */
+
+h1 {
+  color: #000000;
+  font-weight: bold;
+}
+
+p {
+  margin-bottom: 0.4rem;
+}
+  
+.card {
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+}
+  
+.card-cabecalho {
+  background-color: #6a9bd8;
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  text-align: center;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 0;
+}
+  
+.card-corpo {
+  font-size: 0.95rem;
+  padding: 1.25rem;
+}
+  
+.card-rodape {
+  background-color: #fff8f2;
+  border-top: 1px solid #ffe1c7;
+  padding: 0.75rem 1.25rem;
+}
+  
+.form-select {
+  border-radius: 8px;
+}
+  
+.card-img-topo {
+  border-radius: 0;
+}
+  
+.cartao-boas-vindas {
+  background-color: #ffffff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+  max-width: 700px;
+  margin: 40px auto 20px;
+  text-align: center;
+}
+
+.cartao-boas-vindas h1 {
+  font-size: 36px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.cartao-boas-vindas p {
+  font-size: 18px;
+  color: #555;
+}
+
+.pagination .page-link {
+  color: #6a9bd8;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #6a9bd8;
+  border-color: #6a9bd8;
+  color: white;
+}
+
+.pagination .page-item.disabled .page-link {
+  color: #ccc;
+}
+
+.dashboard-ong .card {
+    background-color: #eaf4ff;
+    border: 1px solid #c2e0ff;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+.dashboard-ong .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+.dashboard-ong h3 {
+    color: #4a4a4a;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.dashboard-ong .icone-card {
+    font-size: 3rem;
+    color: #6a9bd8;
+    margin-bottom: 15px;
+}
+
+.card-solicitacao-adocao .card-header {
+    background-color: #6a9bd8;
+    color: white;
+}

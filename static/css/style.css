@@ -1,0 +1,192 @@
+/* static/css/style.css */
+
+@keyframes fundoAnimado {
+  0% {
+    background: url("/static/Img/login.png") no-repeat center center fixed;
+    background-size: cover;
+    opacity: 0;
+  }
+  100% {
+    background: url("/static/Img/login.png") no-repeat center center fixed;
+    background-size: cover;
+    opacity: 1;
+  }
+}
+
+body {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  animation: fundoAnimado 4s forwards;
+}
+
+.imagem-topo {
+  width: 120px;
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container-form {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 2rem;
+  border-radius: 0;
+  box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  animation: fadeIn 0.4s ease-in-out;
+  z-index: 10;
+}
+
+.form-container-cadastro {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 360px;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 0;
+    box-shadow: -4px 0 16px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    animation: fadeIn 0.4s ease-in-out;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+.separador {
+  text-align: center;
+  margin: 20px 0 10px;
+  color: #888;
+  font-size: 14px;
+  position: relative;
+}
+
+.separador::before,
+.separador::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.separador::before {
+  left: 0;
+}
+
+.separador::after {
+  right: 0;
+}
+
+.botao-google {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #444;
+  font-size: 14px;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.botao-google:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.icone-google {
+  width: 20px;
+  height: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.link-cadastro {
+  text-align: center;
+  margin-top: 1.5rem;
+  color: #555;
+}
+
+.link-cadastro a {
+  color: #2575fc;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.link-cadastro a:hover {
+  color: #1a5edb;
+  text-decoration: underline;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  body {
+    justify-content: center;
+    padding: 20px;
+    align-items: flex-start;
+  }
+
+  .container-form,
+  .form-container-cadastro {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 450px;
+    border-radius: 10px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 1.5rem;
+  }
+
+  .imagem-topo {
+      position: relative;
+      top: auto;
+      margin-bottom: 20px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .link-cadastro {
+    font-size: 0.9rem;
+  }
+}
